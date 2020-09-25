@@ -30,7 +30,9 @@ func Start(settings ConfigSchema) (err error) {
 		id := c.Param("amazonID")
 		m, err := scrap.Run(scrap.AmazonPrime, id, settings.ScrapRegion)
 		if err != nil {
-			return c.JSON(http.StatusExpectationFailed, map[string]string{"message": fmt.Sprint(err)})
+			// TODO: the status here should be more carfully chosen
+			// based on which type of error we have
+			return c.JSON(http.StatusInternalServerError, map[string]string{"message": fmt.Sprint(err)})
 		}
 		return c.JSON(http.StatusOK, m)
 	})
