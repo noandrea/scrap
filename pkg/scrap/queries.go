@@ -37,8 +37,8 @@ LET doc = DOCUMENT("https://www.amazon.%s/gp/product/%s")
 LET title = ELEMENT(doc, '[data-automation-id="title"]')
 LET year = ELEMENT(doc, '[data-automation-id="release-year-badge"]')
 // image
-// LET packshot = ELEMENT(doc, '.dv-fallback-packshot-image') 
-// LET img = ELEMENT(packshot, 'img')
+LET packshot = ELEMENT(doc, '.dv-fallback-packshot-image') 
+LET img = ELEMENT(packshot, 'img')
 
 // actors
 LET meta = ELEMENT(doc, '[data-automation-id="meta-info"]')
@@ -63,7 +63,7 @@ RETURN {
   release_year: TRIM(year.innerText),
   actors: actors,
   similar_ids: similar,
-  //poster: img.attributes.src,
+  poster: img.attributes.src,
 } `}
 
 // this should be expanded to accept other parmaterers like language
