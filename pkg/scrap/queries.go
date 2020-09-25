@@ -13,7 +13,7 @@ const (
 )
 
 var validators = map[string]*regexp.Regexp{
-	AmazonPrime: regexp.MustCompile("[A-Z0-9]{8,14}"),
+	AmazonPrime: regexp.MustCompile("^[A-Z0-9]{8,14}$"),
 }
 
 // IsValidID validates an id for a provider
@@ -22,7 +22,7 @@ var validators = map[string]*regexp.Regexp{
 func IsValidID(provider, id string) bool {
 	r, found := validators[provider]
 	if !found {
-		log.Debugln("validator regexp for provider %v not found", provider)
+		log.Debugf("validator regexp for provider %v not found", provider)
 		return true
 	}
 	return r.MatchString(id)
@@ -67,7 +67,7 @@ RETURN {
 } `}
 
 // this should be expanded to accept other parmaterers like language
-func buildQuery(provider, id, locale string) (q string, err error) {
+func buildQuery(provider, id, region string) (q string, err error) {
 	q, found := queries[provider]
 	if !found {
 		err = fmt.Errorf("provider not supported: %s", provider)
@@ -77,6 +77,6 @@ func buildQuery(provider, id, locale string) (q string, err error) {
 		err = fmt.Errorf("invalid id %v for provider %v", id, provider)
 		return
 	}
-	q = fmt.Sprintf(q, locale, id)
+	q = fmt.Sprintf(q, region, id)
 	return
 }
