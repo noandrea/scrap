@@ -35,7 +35,7 @@ build-dist: $(GOFILES)
 test: test-all
 
 test-all:
-	@go test $(GOPACKAGES) -v -race -coverprofile=cover.out -covermode=atomic
+	@go test -v $(GOPACKAGES) -race -coverprofile=cover.out -covermode=atomic
 
 bench: bench-all
 
@@ -45,7 +45,10 @@ bench-all:
 lint: lint-all
 
 lint-all:
-	@golint -set_exit_status $(GOPACKAGES)
+	@echo run static checks and linting
+	staticcheck $(GOPACKAGES)
+	golint -set_exit_status $(GOPACKAGES)
+	@echo done
 
 clean:
 	@echo remove $(OUTPUTFOLDER), $(RELEASEFOLDER) folder
