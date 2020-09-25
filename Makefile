@@ -32,6 +32,13 @@ build-dist: $(GOFILES)
 	cp -r README.md LICENSE $(OUTPUTFOLDER)
 	@echo done
 
+install:
+	@echo installing $(APP)
+	GOOS=$(OS) GOARCH=$(ARCH) CGO_ENABLED=0 go install -ldflags '-s -w -extldflags "-static" -X main.Version=$(GIT_DESCR)' .
+	@echo done
+
+	
+
 test: test-all
 
 test-all:
@@ -109,7 +116,7 @@ _release-major:
 	$(eval GIT_DESCR = $(shell git describe --tags | awk -F '("|")' '{ print($$1)}' | awk -F. '{$$(NF-2) = $$(NF-2) + 1;} 1' | sed 's/ /./g' | awk -F. '{$$(NF-1) = 0;} 1' | sed 's/ /./g' | awk -F. '{$$(NF) = 0;} 1' | sed 's/ /./g' ))
 release-major: _release-major git-release 
 
-gh-publish-release: clean
+gh-publish-release: clean build
 	@echo publish release
 	mkdir -p $(RELEASEFOLDER)
 	zip -rmT $(RELEASEFOLDER)/$(APP)-$(GIT_DESCR).zip $(OUTPUTFOLDER)/
