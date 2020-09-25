@@ -2,8 +2,23 @@
 ## [Unreleased]
 
 
+<a name="0.2.0"></a>
+## [0.2.0] - 2020-09-26
+### Doc
+- add detailed overview
+
+### Feat
+- add timing and quiet option for inspect command
+
+### Fix
+- enable poster url detection in ferret query
+
+### Test
+- add unit tests for query building
+
+
 <a name="0.1.0"></a>
-## [0.1.0] - 2020-09-25
+## 0.1.0 - 2020-09-25
 ### Feat
 - add docker support
 - add web REST API support
@@ -11,8 +26,5 @@
 - **cli:** add command to run extractoin on an ID
 
 
-<a name="0.0.0"></a>
-## 0.0.0 - 2020-09-25
-
-[Unreleased]: https://github.com/noandrea/scrap/compare/0.1.0...HEAD
-[0.1.0]: https://github.com/noandrea/scrap/compare/0.0.0...0.1.0
+[Unreleased]: https://github.com/noandrea/scrap/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/noandrea/scrap/compare/0.1.0...0.2.0
