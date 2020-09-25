@@ -3,12 +3,14 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 
 	"github.com/noandrea/scrap/pkg/scrap"
 	"github.com/spf13/cobra"
 )
 
 var provider, region string
+var quiet bool
 
 // inspectCmd represents the inspect command
 var inspectCmd = &cobra.Command{
@@ -32,11 +34,14 @@ func init() {
 	// is called directly, e.g.:
 	inspectCmd.Flags().StringVarP(&provider, "provider", "p", scrap.AmazonPrime, "set the provider")
 	inspectCmd.Flags().StringVarP(&region, "region", "r", "de", "set the region for the query")
+	inspectCmd.Flags().BoolVarP(&quiet, "quiet", "q", false, "only output the json result (to be used with jq)")
+
 }
 
 func inspect(cmd *cobra.Command, args []string) {
-	// TODO validate input regexp
 	id := args[0]
+	start := time.Now()
+
 	movie, err := scrap.Run(provider, id, region)
 	if err != nil {
 		fmt.Println(err)
@@ -48,4 +53,7 @@ func inspect(cmd *cobra.Command, args []string) {
 		return
 	}
 	fmt.Println(string(s))
+	if !quiet {
+		fmt.Println("took ", time.Since(start))
+	}
 }
