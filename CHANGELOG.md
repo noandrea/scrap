@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="0.2.1"></a>
+## [0.2.1] - 2020-09-26
+### Fix
+- parse movies without poster
+
+
 <a name="0.2.0"></a>
 ## [0.2.0] - 2020-09-26
 ### Doc
@@ -26,5 +32,6 @@
 - **cli:** add command to run extractoin on an ID
 
 
-[Unreleased]: https://github.com/noandrea/scrap/compare/0.2.0...HEAD
+[Unreleased]: https://github.com/noandrea/scrap/compare/0.2.1...HEAD
+[0.2.1]: https://github.com/noandrea/scrap/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/noandrea/scrap/compare/0.1.0...0.2.0
