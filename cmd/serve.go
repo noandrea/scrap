@@ -34,8 +34,12 @@ func serve(cmd *cobra.Command, args []string) {
 	fmt.Println()
 
 	var settings server.ConfigSchema
+	// set config defaults
 	server.Defaults()
-	viper.AutomaticEnv() // read in environment variables that match
+	// read in environment variables that match
+	viper.SetEnvPrefix("scrap")
+	viper.AutomaticEnv()
+	// load a config file if set
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
