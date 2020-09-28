@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-var provider, region string
+var provider, region, chromeAddress string
 var quiet bool
 
 // inspectCmd represents the inspect command
@@ -34,6 +34,7 @@ func init() {
 	// is called directly, e.g.:
 	inspectCmd.Flags().StringVarP(&provider, "provider", "p", scrap.AmazonPrime, "set the provider")
 	inspectCmd.Flags().StringVarP(&region, "region", "r", "de", "set the region for the query")
+	inspectCmd.Flags().StringVarP(&chromeAddress, "chrome-address", "a", "http://127.0.0.1:9222", "set the address for headless chrome")
 	inspectCmd.Flags().BoolVarP(&quiet, "quiet", "q", false, "only output the json result (to be used with jq)")
 
 }
@@ -41,8 +42,11 @@ func init() {
 func inspect(cmd *cobra.Command, args []string) {
 	id := args[0]
 	start := time.Now()
-
-	movie, err := scrap.Run(provider, id, region)
+	// inspect
+	scrap.Configure(chromeAddress)
+	// run scrap
+	var movie scrap.Movie
+	err := scrap.Run(provider, id, region, &movie)
 	if err != nil {
 		fmt.Println(err)
 		return

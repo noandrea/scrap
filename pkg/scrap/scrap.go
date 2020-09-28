@@ -24,19 +24,20 @@ var (
 	ctx    context.Context
 )
 
-// Setup scrap
-func init() {
+// Configure scrap
+func Configure(chromeAddress string) {
 	ferret = compiler.New()
 	// create a root context
 	ctx = context.Background()
 	// chrome headless is required to execute js
-	ctx = drivers.WithContext(ctx, cdp.NewDriver(), drivers.AsDefault())
-	// enable HTML drivers
-	// ctx = drivers.WithContext(ctx, http.NewDriver())
+	ctx = drivers.WithContext(ctx, cdp.NewDriver(
+		cdp.WithAddress(chromeAddress)),
+		drivers.AsDefault(),
+	)
 }
 
 // Run execute the data extraction
-func Run(provider, id, region string) (m Movie, err error) {
+func Run(provider, id, region string, m interface{}) (err error) {
 	log.Debugf("extraction provider:%s id:%s region:%s", provider, id, region)
 	// retrieve the query for the provider
 	query, err := buildQuery(provider, id, region)
@@ -48,19 +49,19 @@ func Run(provider, id, region string) (m Movie, err error) {
 	// compile the query
 	program, err := ferret.Compile(query)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error compiling query: %v", err)
 		return
 	}
 	// execute the query
 	out, err := program.Run(ctx)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error executing query: %v", err)
 		return
 	}
 	// unmarshal result
 	err = json.Unmarshal(out, &m)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error unmarshal result: %v", err)
 		return
 	}
 	return
