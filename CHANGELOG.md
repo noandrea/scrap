@@ -2,6 +2,16 @@
 ## [Unreleased]
 
 
+<a name="0.3.0"></a>
+## [0.3.0] - 2020-09-29
+### Feat
+- implement caching for scraped items
+- improve support for docker
+
+### Fix
+- honor chrome address configuration
+
+
 <a name="0.2.1"></a>
 ## [0.2.1] - 2020-09-26
 ### Fix
@@ -32,6 +42,7 @@
 - **cli:** add command to run extractoin on an ID
 
 
-[Unreleased]: https://github.com/noandrea/scrap/compare/0.2.1...HEAD
+[Unreleased]: https://github.com/noandrea/scrap/compare/0.3.0...HEAD
+[0.3.0]: https://github.com/noandrea/scrap/compare/0.2.1...0.3.0
 [0.2.1]: https://github.com/noandrea/scrap/compare/0.2.0...0.2.1
 [0.2.0]: https://github.com/noandrea/scrap/compare/0.1.0...0.2.0
