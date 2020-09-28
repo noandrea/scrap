@@ -16,7 +16,8 @@ func _m(err error) interface{} {
 
 // Start starts the rest api
 func Start(settings ConfigSchema) (err error) {
-
+	// configure scrap
+	scrap.Configure(settings.ChromeAddress)
 	// cache management
 	if err := initCache(settings); err != nil {
 		log.Warnf("cache initialization failed, will run without cache: %v", err)

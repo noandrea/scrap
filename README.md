@@ -123,13 +123,14 @@ services:
     ports:
     - 8080:8080
     environment: 
-    - 'SCRAP_CHROME_ADDRESS=chrome:9222'
+    - SCRAP_CHROME_ADDRESS=http://chrome:9222
   chrome:
     container_name: scrap_chrome
     image: zenika/alpine-chrome
-    ports:
-    - 9222:9222
-    command: [chromium-browser, "--headless", "--disable-gpu", "--no-sandbox", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9222"]
+    expose:
+    - 9222
+    command: 
+         [chromium-browser, "--headless", "--disable-gpu", "--no-sandbox", "--remote-debugging-address=0.0.0.0", "--remote-debugging-port=9222"]
 ```
 
 

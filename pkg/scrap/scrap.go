@@ -30,7 +30,10 @@ func Configure(chromeAddress string) {
 	// create a root context
 	ctx = context.Background()
 	// chrome headless is required to execute js
-	ctx = drivers.WithContext(ctx, cdp.NewDriver(cdp.WithAddress(chromeAddress)), drivers.AsDefault())
+	ctx = drivers.WithContext(ctx, cdp.NewDriver(
+		cdp.WithAddress(chromeAddress)),
+		drivers.AsDefault(),
+	)
 }
 
 // Run execute the data extraction
@@ -46,19 +49,19 @@ func Run(provider, id, region string, m interface{}) (err error) {
 	// compile the query
 	program, err := ferret.Compile(query)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error compiling query: %v", err)
 		return
 	}
 	// execute the query
 	out, err := program.Run(ctx)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error executing query: %v", err)
 		return
 	}
 	// unmarshal result
 	err = json.Unmarshal(out, &m)
 	if err != nil {
-		log.Error(err)
+		log.Errorf("error unmarshal result: %v", err)
 		return
 	}
 	return

@@ -19,7 +19,7 @@ type ConfigSchema struct {
 func Defaults() {
 	// web
 	viper.SetDefault("listen_address", ":8080")
-	viper.SetDefault("chrome_address", ":9222")
+	viper.SetDefault("chrome_address", "http://127.0.0.1:9222")
 	viper.SetDefault("scrap_region", "de")
 	viper.SetDefault("cache_enabled", true)   // enable cache
 	viper.SetDefault("cache_max_size", 10)    // 10 megabytes
